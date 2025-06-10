@@ -1,0 +1,24 @@
+Required images for the website:
+
+1. hero-bg.jpg - A high-quality image of a tattoo studio or artistic tattoo work (1920x1080 minimum)
+2. tattoo-service.jpg - Professional tattoo work being done or completed tattoo art (800x600 minimum)
+3. piercing-service.jpg - Professional piercing setup or completed piercing work (800x600 minimum)
+
+Gallery placeholders (all should be square format, minimum 600x600):
+- gallery-1.jpg
+- gallery-2.jpg
+- gallery-3.jpg
+- gallery-4.jpg
+
+Please replace these placeholder images with your studio's actual photos:
+- Use high-quality, well-lit photos
+- Ensure you have permission/rights to use all photos
+- Make sure the photos showcase your best work
+- Include photos of your studio space to show the professional environment
+- Consider including photos of your sterilization equipment and safety procedures
+
+Image Guidelines:
+1. Use JPG format for photos
+2. Optimize images for web (reduce file size while maintaining quality)
+3. Keep consistent aspect ratios within each section
+4. Ensure all images are high resolution but optimized for web performance 

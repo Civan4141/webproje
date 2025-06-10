@@ -1,0 +1,65 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id       String @id @default(uuid())
+  email    String @unique
+  password String
+  role     String @default("admin")
+}
+
+model Appointment {
+  id          String   @id @default(cuid())
+  name        String
+  email       String
+  phone       String
+  date        String
+  time        String
+  serviceType String
+  notes       String?
+  status      String   @default("pending")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Gallery {
+  id          String   @id @default(uuid())
+  title       String
+  imageUrl    String
+  category    String   // tattoo or piercing
+  subCategory String?  // e.g., traditional, tribal, etc.
+  createdAt   DateTime @default(now())
+}
+
+model TattooService {
+  id          String   @id @default(uuid())
+  name        String
+  description String
+  price       String
+  category    String   // e.g., traditional, tribal, etc.
+  imageUrl    String?
+  duration    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model PiercingService {
+  id          String   @id @default(uuid())
+  name        String
+  description String
+  price       String
+  location    String   // e.g., ear, nose, etc.
+  imageUrl    String?
+  duration    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+} 
