@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
+import Image from 'next/image';
 
 interface PiercingService {
   id: string;
@@ -175,7 +176,29 @@ export default function PiercingServiceManager() {
                 value={formData.imageUrl}
                 onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
                 className="w-full p-2 border rounded"
+                placeholder="https://example.com/image.jpg"
               />
+              {formData.imageUrl && (
+                <div className="mt-2">
+                  <p className="text-sm text-gray-600 mb-2">Görsel Önizleme:</p>
+                  <div className="relative h-48 w-full border rounded overflow-hidden">
+                    <Image
+                      src={formData.imageUrl}
+                      alt="Önizleme"
+                      fill
+                      className="object-cover"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.style.display = 'none';
+                        target.nextElementSibling!.textContent = 'Görsel yüklenemedi';
+                      }}
+                    />
+                    <div className="absolute inset-0 bg-gray-200 flex items-center justify-center text-gray-500 text-sm">
+                      Görsel yükleniyor...
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
             <div className="md:col-span-2">
               <label className="block mb-2">Açıklama</label>
@@ -208,35 +231,62 @@ export default function PiercingServiceManager() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {services.map((service) => (
-          <div key={service.id} className="bg-white p-6 rounded-lg shadow-md">
-            <h3 className="text-xl font-semibold mb-2">{service.name}</h3>
-            <p className="text-gray-600 mb-4">{service.description}</p>
-            <div className="flex justify-between items-center mb-4">
-              <span className="text-lg font-bold text-pink-600">{service.price} TL</span>
-              <span className="text-sm bg-pink-100 text-pink-800 px-3 py-1 rounded-full">
-                {service.location}
-              </span>
-            </div>
-            {service.duration && (
-              <p className="text-sm text-gray-500 mb-4">Süre: {service.duration}</p>
+          <div
+            key={service.id}
+            className="bg-white rounded-lg shadow-md p-6 mb-4"
+          >
+            {service.imageUrl && (
+              <div className="relative h-48 w-full mb-4 rounded overflow-hidden">
+                <Image
+                  src={service.imageUrl}
+                  alt={service.name}
+                  fill
+                  className="object-cover"
+                />
+              </div>
             )}
-            <div className="flex justify-end gap-2">
-              <button
-                onClick={() => startEdit(service)}
-                className="text-blue-600 hover:text-blue-800"
-              >
-                Düzenle
-              </button>
-              <button
-                onClick={() => handleDelete(service.id)}
-                className="text-red-600 hover:text-red-800"
-              >
-                Sil
-              </button>
+            <div className="flex justify-between">
+              <div>
+                <h3 className="text-lg font-semibold">{service.name}</h3>
+                <p className="text-gray-600">{service.description}</p>
+                <div className="mt-2">
+                  <p className="text-gray-700">
+                    <span className="font-semibold">Fiyat:</span> {service.price}
+                  </p>
+                  <p className="text-gray-700">
+                    <span className="font-semibold">Bölge:</span> {service.location}
+                  </p>
+                  {service.duration && (
+                    <p className="text-gray-700">
+                      <span className="font-semibold">Süre:</span> {service.duration}
+                    </p>
+                  )}
+                </div>
+              </div>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => startEdit(service)}
+                  className="text-pink-600 hover:text-pink-800"
+                >
+                  Düzenle
+                </button>
+                <button
+                  onClick={() => handleDelete(service.id)}
+                  className="text-red-600 hover:text-red-800"
+                >
+                  Sil
+                </button>
+              </div>
             </div>
           </div>
         ))}
       </div>
+
+      {services.length === 0 && !isAddingNew && (
+        <div className="text-center py-12 text-gray-500">
+          Henüz hizmet bulunmuyor.
+        </div>
+      )}
     </div>
   );
 } 
