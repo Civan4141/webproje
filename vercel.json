@@ -1,0 +1,10 @@
+{
+  "buildCommand": "npx prisma generate && next build",
+  "installCommand": "npm install",
+  "framework": "nextjs",
+  "regions": ["iad1"],
+  "env": {
+    "POSTGRES_URL": "@postgres_url",
+    "POSTGRES_URL_NON_POOLING": "@postgres_url_non_pooling"
+  }
+} 
