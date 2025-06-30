@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
+import Image from 'next/image';
 
 interface GalleryItem {
   id: string;
@@ -10,6 +11,7 @@ interface GalleryItem {
   category: string;
   subCategory?: string;
   createdAt: string;
+  location?: string;
 }
 
 export default function GalleryManager() {
@@ -21,6 +23,7 @@ export default function GalleryManager() {
     imageUrl: '',
     category: 'tattoo',
     subCategory: '',
+    location: '',
   });
 
   useEffect(() => {
@@ -91,6 +94,7 @@ export default function GalleryManager() {
       imageUrl: '',
       category: 'tattoo',
       subCategory: '',
+      location: '',
     });
     setEditingItem(null);
     setIsAddingNew(false);
@@ -103,6 +107,7 @@ export default function GalleryManager() {
       imageUrl: item.imageUrl,
       category: item.category,
       subCategory: item.subCategory || '',
+      location: item.location || '',
     });
     setIsAddingNew(true);
   };
@@ -121,7 +126,7 @@ export default function GalleryManager() {
 
       {isAddingNew && (
         <form onSubmit={handleSubmit} className="mb-8 bg-white p-6 rounded-lg shadow-md">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4">
             <div>
               <label className="block mb-2">Başlık</label>
               <input
@@ -133,28 +138,6 @@ export default function GalleryManager() {
               />
             </div>
             <div>
-              <label className="block mb-2">Kategori</label>
-              <select
-                value={formData.category}
-                onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                className="w-full p-2 border rounded"
-                required
-              >
-                <option value="tattoo">Dövme</option>
-                <option value="piercing">Piercing</option>
-              </select>
-            </div>
-            <div>
-              <label className="block mb-2">Alt Kategori</label>
-              <input
-                type="text"
-                value={formData.subCategory}
-                onChange={(e) => setFormData({ ...formData, subCategory: e.target.value })}
-                className="w-full p-2 border rounded"
-                placeholder="Opsiyonel"
-              />
-            </div>
-            <div>
               <label className="block mb-2">Görsel URL</label>
               <input
                 type="url"
@@ -162,7 +145,29 @@ export default function GalleryManager() {
                 onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
                 className="w-full p-2 border rounded"
                 required
+                placeholder="https://example.com/image.jpg"
               />
+              {formData.imageUrl && (
+                <div className="mt-2">
+                  <p className="text-sm text-gray-600 mb-2">Görsel Önizleme:</p>
+                  <div className="relative h-48 w-full border rounded overflow-hidden">
+                    <Image
+                      src={formData.imageUrl}
+                      alt="Önizleme"
+                      fill
+                      className="object-cover"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.style.display = 'none';
+                        target.nextElementSibling!.textContent = 'Görsel yüklenemedi';
+                      }}
+                    />
+                    <div className="absolute inset-0 bg-gray-200 flex items-center justify-center text-gray-500 text-sm">
+                      Görsel yükleniyor...
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
           <div className="mt-4 flex justify-end gap-4">

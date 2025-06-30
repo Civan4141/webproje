@@ -93,4 +93,19 @@ npm run dev
 
 ## License
 
-MIT 
+MIT
+
+## Vercel Deploy
+
+Projeyi Vercel'e deploy etmek için:
+
+1. [Vercel](https://vercel.com/) hesabı açın ve GitHub hesabınızı bağlayın.
+2. Bu projeyi GitHub'a push edin.
+3. Vercel panelinden yeni bir proje oluşturun ve bu repoyu seçin.
+4. Ortam değişkenlerini (Environment Variables) Vercel panelinde tanımlayın:
+   - \`DATABASE_URL\` (örn: PostgreSQL bağlantı adresi)
+   - \`NEXTAUTH_SECRET\` veya \`JWT_SECRET\` (güçlü bir secret girin)
+5. Eğer Prisma kullanıyorsanız, veritabanı olarak SQLite yerine PostgreSQL veya MySQL kullanmanız önerilir.
+6. Deploy işlemini başlatın.
+
+> Not: SQLite dosyası Vercel'de kalıcı değildir. Ücretsiz veritabanı için [Neon](https://neon.tech/) veya [PlanetScale](https://planetscale.com/) gibi servisleri kullanabilirsiniz.

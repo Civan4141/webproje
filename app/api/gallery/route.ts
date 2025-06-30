@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
+import { isAuthenticated } from '@/lib/auth';
 
 // GET tüm galeri öğelerini getir
 export async function GET() {
@@ -21,9 +22,16 @@ export async function GET() {
 
 // POST yeni galeri öğesi ekle
 export async function POST(request: Request) {
+  const user = await isAuthenticated(request);
+  if (!user) {
+    return NextResponse.json(
+      { error: 'Unauthorized' },
+      { status: 401 }
+    );
+  }
   try {
     const body = await request.json();
-    const { title, imageUrl, category, subCategory } = body;
+    const { title, imageUrl, category, subCategory, location } = body;
 
     const item = await prisma.gallery.create({
       data: {
@@ -31,6 +39,7 @@ export async function POST(request: Request) {
         imageUrl,
         category,
         subCategory,
+        location,
       },
     });
 
@@ -48,7 +57,7 @@ export async function POST(request: Request) {
 export async function PUT(request: Request) {
   try {
     const body = await request.json();
-    const { id, title, imageUrl, category, subCategory } = body;
+    const { id, title, imageUrl, category, subCategory, location } = body;
 
     const item = await prisma.gallery.update({
       where: { id },
@@ -57,6 +66,7 @@ export async function PUT(request: Request) {
         imageUrl,
         category,
         subCategory,
+        location,
       },
     });
 

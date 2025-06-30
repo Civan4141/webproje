@@ -41,6 +41,12 @@ export default function Navbar() {
               Randevu Al
             </Link>
             <Link 
+              href="/appointments/status"
+              className={`nav-link text-yellow-600 font-bold border-2 border-yellow-400 rounded px-3 py-1 ${isActive('/appointments/status') ? 'nav-link-active' : ''}`}
+            >
+              Randevu Takip
+            </Link>
+            <Link 
               href="/admin"
               className={`nav-link ${isActive('/admin') ? 'nav-link-active' : ''}`}
             >

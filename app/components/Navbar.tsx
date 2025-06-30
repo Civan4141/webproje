@@ -112,6 +112,12 @@ export default function Navbar() {
                 Galeri
               </Link>
               <Link
+                href="/appointments/status"
+                className="text-white !text-white hover:text-yellow-400 px-6 py-8 rounded-md text-2xl font-bold border-2 border-yellow-400 ml-2 transition-colors"
+              >
+                Randevu Takip
+              </Link>
+              <Link
                 href="/contact"
                 className="text-white !text-white hover:text-gray-300 px-6 py-8 rounded-md text-2xl font-medium transition-colors"
               >
@@ -199,6 +205,12 @@ export default function Navbar() {
               className="block px-3 py-2 text-base font-medium text-white !text-white hover:text-gray-300 hover:bg-gray-900 rounded-md transition-colors"
             >
               Galeri
+            </Link>
+            <Link
+              href="/appointments/status"
+              className="block px-3 py-2 text-base font-bold text-yellow-400 border-2 border-yellow-400 hover:bg-yellow-900 hover:text-yellow-200 rounded-md transition-colors"
+            >
+              Randevu Takip
             </Link>
             <Link
               href="/contact"

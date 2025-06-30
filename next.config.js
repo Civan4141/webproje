@@ -75,6 +75,9 @@ const nextConfig = {
         pathname: '/**',
       },
     ],
+    domains: [
+      'ae03.alicdn.com',
+    ],
   },
 }
 
